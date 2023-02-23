@@ -28,3 +28,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   
     $router->put('customers/{id}', ['uses' => 'CustomerController@update']);
 }); 
+
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('login',  ['uses' => 'AuthController@login']);
+}); 
