@@ -4,12 +4,16 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
-))->bootstrap();
-
-date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
-
-/*
-|--------------------------------------------------------------------------
+    ))->bootstrap();
+    
+    date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
+    
+    Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+    Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+    Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
+    
+    /*
+    |--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
 |
@@ -61,6 +65,7 @@ $app->singleton(
 $app->configure('auth');
 $app->configure('jwt');
 $app->configure('app');
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -73,12 +78,14 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class,
+    Fruitcake\Cors\HandleCors::class
+]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'cors' => 'palanik\lumen\Middleware\LumenCors'
 ]);
 
 /*
@@ -97,6 +104,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
