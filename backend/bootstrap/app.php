@@ -63,9 +63,8 @@ $app->singleton(
 |
 */
 $app->configure('auth');
-$app->configure('jwt');
 $app->configure('app');
-$app->configure('cors');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,12 +79,10 @@ $app->configure('cors');
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class,
-    Fruitcake\Cors\HandleCors::class
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
-    'cors' => 'palanik\lumen\Middleware\LumenCors'
 ]);
 
 /*
@@ -104,7 +101,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
-$app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

@@ -6,6 +6,7 @@ return[
         'passwords' => 'users',
     ],
     
+
     'guards' => [
         'api' => [
             'driver' => 'jwt',
@@ -13,5 +14,10 @@ return[
         ],
     ],
 
-    
+    'providers' =>[
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\User::class
+        ]
+    ]
 ];

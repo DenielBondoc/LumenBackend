@@ -24,9 +24,7 @@ class CustomerController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:customers',
-            'location' => 'required'
         ]);
-
 
         $customer = Customer::create($request->all());
 

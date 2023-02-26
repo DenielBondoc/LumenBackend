@@ -29,6 +29,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('customers/{id}', ['uses' => 'CustomerController@update']);
 }); 
 
-$router->group(['prefix' => 'auth'], function () use ($router) {
-    $router->post('login',  ['uses' => 'AuthController@login']);
-}); 
+$router->group(['prefix' => 'auth'], function() use($router) {
+    $router->post('register-user', 'UserController@register');
+    $router->post('login', 'UserController@login');
+    $router->get('me', 'UserController@me');
+    $router->get('refresh', 'UserController@refresh');
+    $router->post('logout', 'UserController@logout');
+
+});
