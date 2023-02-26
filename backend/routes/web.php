@@ -30,10 +30,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 }); 
 
 $router->group(['prefix' => 'auth'], function() use($router) {
+    $router->get('users', 'UserController@showAllUser');
     $router->post('register-user', 'UserController@register');
     $router->post('login', 'UserController@login');
     $router->get('me', 'UserController@me');
     $router->get('refresh', 'UserController@refresh');
     $router->post('logout', 'UserController@logout');
-
 });

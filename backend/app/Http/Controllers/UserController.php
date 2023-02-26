@@ -10,14 +10,19 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'showAllUser']]);
+    }
+
+    public function showAllUser()
+    {
+        return response()->json(User::all());
     }
 
     public function register(Request $request){
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required'
         ]);
 
         $input = $request->only('name', 'email', 'password');
