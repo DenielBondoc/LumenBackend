@@ -19,13 +19,9 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('customers',  ['uses' => 'CustomerController@showAllCustomers']);
-
     $router->get('customers/{id}', ['uses' => 'CustomerController@showOneCustomer']);
-  
     $router->post('customers', ['uses' => 'CustomerController@create']);
-  
     $router->delete('customers/{id}', ['uses' => 'CustomerController@delete']);
-  
     $router->put('customers/{id}', ['uses' => 'CustomerController@update']);
 }); 
 
