@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'showAllUser']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'showAllUser', 'me']]);
     }
 
     public function showAllUser()
