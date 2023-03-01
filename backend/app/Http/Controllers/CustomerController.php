@@ -24,6 +24,9 @@ class CustomerController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:customers',
+            'twitter' => 'required',
+            'github' => 'required',
+            'latest_article_published' => 'required',
         ]);
 
         $customer = Customer::create($request->all());
@@ -33,6 +36,15 @@ class CustomerController extends Controller
 
     public function update($id, Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'twitter' => 'required',
+            'github' => 'required',
+            'latest_article_published' => 'required'
+        ]);
+
         $customer = Customer::findOrFail($id);
         $customer->update($request->all());
 

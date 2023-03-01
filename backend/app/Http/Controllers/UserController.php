@@ -22,7 +22,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required|confirmed'
         ]);
 
         $input = $request->only('name', 'email', 'password');
