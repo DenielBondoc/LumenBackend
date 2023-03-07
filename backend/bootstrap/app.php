@@ -8,6 +8,9 @@ require_once __DIR__.'/../vendor/autoload.php';
     
     date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
     
+    Header('Access-Control-Allow-Origin: *'); //for allow any domain, insecure
+    Header('Access-Control-Allow-Headers: *'); //for allow any headers, insecure
+    Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
     
     /*
     |--------------------------------------------------------------------------
@@ -28,6 +31,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -38,6 +43,11 @@ $app->withEloquent();
 | your own bindings here if you like or you can make another file.
 |
 */
+
+collect(scandir(__DIR__.'/../config'))->each(function($item) use ($app) {
+    $app->configure(basename($item,'.php'));
+});
+
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -61,6 +71,9 @@ $app->singleton(
 */
 $app->configure('auth');
 $app->configure('app');
+$app->configure('mail');
+$app->configure('services');
+
 
 
 /*
@@ -99,6 +112,9 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Illuminate\Notifications\NotificationServiceProvider::class);
+$app->register(Sichikawa\LaravelSendgridDriver\MailServiceProvider::class);
+
+unset($app->availableBindings['mailer']);
 
 /*
 |--------------------------------------------------------------------------
