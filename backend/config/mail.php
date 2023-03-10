@@ -4,8 +4,8 @@ return[
     'driver' => env('MAIL_DRIVER', 'sendgrid'),
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS'),
-        'name' => env('MAIL_FROM_NAME')
+        'address' => env('MAIL_FROM_ADDRESS', 'itsmesendgrid@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Jandeniel')
     ],
 
     'mailers' => [

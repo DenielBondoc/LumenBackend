@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
@@ -21,7 +22,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -43,5 +44,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [];
     }
 
+    // public function setPasswordAttribute($password)
+    // {
+    //     if ( $password !== null & $password !== "" ) {
+    //         $this->attributes['password'] = Hash::make($password);
+    //     }
+    // }
 
 }

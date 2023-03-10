@@ -32,22 +32,22 @@ $router->group(['prefix' => 'auth'], function() use($router) {
     $router->get('me', 'UserController@me');
     $router->get('refresh', 'UserController@refresh');
     $router->post('logout', 'UserController@logout');
-    $router->post('forgot-password', 'ForgotPassword@forgotPassword');
     $router->post('sendPasswordResetLink', 'ResetPassword@sendEmail');
+    $router->post('resetPassword', 'ChangePasswordController@process');
 });
 
-$router->get('test_mail', function () {
-    $data = ['test data'];
+// $router->get('test_mail', function () {
+//     $data = ['test data'];
 
-    try {
-        \Illuminate\Support\Facades\Mail::send('emails.test', $data, function(\Illuminate\Mail\Message $message) {
-            $message->to('g.castro.ojt.clarkoutsourcing@gmail.com', 'Test User')
-                ->from('jandenielbondocbondoc@gmail.com', 'JanDeniel')
-                ->subject('Test Mail');
-        });
-    }catch (Exception $exception) {
-        dd($exception->getMessage());
-    }
+//     try {
+//         \Illuminate\Support\Facades\Mail::send('emails.test', $data, function(\Illuminate\Mail\Message $message) {
+//             $message->to('g.castro.ojt.clarkoutsourcing@gmail.com', 'Test User')
+//                 ->from('jandenielbondocbondoc@gmail.com', 'JanDeniel')
+//                 ->subject('Test Mail');
+//         });
+//     }catch (Exception $exception) {
+//         dd($exception->getMessage());
+//     }
 
-    dd('Mail sent');
-});
+//     dd('Mail sent');
+// });
